@@ -1,0 +1,36 @@
+html, body, #content, #navbar {
+    height: 100%;
+}
+
+.row {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+#navbar {
+    border-right: 2px solid var(--green);
+}
+.navbar-item {
+    color: var(--green);
+    border-top: 1px solid var(--light);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.navbar-item p:hover {
+    cursor: pointer;
+    color: white;
+    font-weight: bold; 
+}
+
+.navbar-title {
+    border-bottom: 2px solid var(--green);
+}
+
+#content {
+    background-color: var(--light);
+}
