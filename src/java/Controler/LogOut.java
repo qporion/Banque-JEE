@@ -5,16 +5,11 @@
  */
 package Controler;
 
-import Beans.ContentBeans;
+import Model.Client;
+import Orm.QueryHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.ServletConfig;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author p1712620
+ * @author Quentin
  */
-@WebServlet(name = "Accueil", urlPatterns = {"/Accueil"})
-public class Accueil extends AbstractServlet {
+@WebServlet(name = "LogOut", urlPatterns = {"/LogOut"})
+public class LogOut extends AbstractServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -39,7 +34,10 @@ public class Accueil extends AbstractServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.buildBeans(request, "accueil", null);
+        
+        request.getSession().removeAttribute("client");
+        
+        this.buildBeans(request, "accueil", null);                   
         this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
     }
 

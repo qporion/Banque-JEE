@@ -44,8 +44,8 @@ Contributor(s):
     <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
     <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
     <property name="hibernate.connection.url">jdbc:derby://localhost:1527/Banque</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">root</property>
+    <property name="hibernate.connection.username">app</property>
+    <property name="hibernate.connection.password">app</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>

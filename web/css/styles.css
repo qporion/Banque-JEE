@@ -1,3 +1,7 @@
+html{
+    width: -webkit-fill-available; 
+}
+
 html, body, #content, #navbar {
     height: 100%;
 }
@@ -8,6 +12,23 @@ html, body, #content, #navbar {
 
 p {
     margin: 0;
+}
+
+a {
+    color: var(--green);
+}
+
+#btn-connexion {
+    background-color: var(--green);
+    color: var(--dark);
+    border-radius: 5px;
+}
+
+#btn-connexion:hover {
+    border: 1px solid var(--green);
+    color: var(--green);
+    background-color: var(--dark);
+    text-decoration: none;
 }
 
 #navbar {
@@ -21,7 +42,7 @@ p {
     text-align: center;
 }
 
-.navbar-item p:hover {
+.navbar-item a:hover {
     cursor: pointer;
     color: white;
     font-weight: bold; 
