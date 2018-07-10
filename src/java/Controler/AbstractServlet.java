@@ -36,11 +36,11 @@ public abstract class AbstractServlet extends HttpServlet{
         Map<String,String> nav = new TreeMap<>();
         nav.put("Accueil", request.getContextPath() + "/Accueil");
         nav.put("Agences", "#");
-        nav.put("Services", "#");
         
         if (request.getSession().getAttribute("client") != null) {
             nav.put("Mes comptes", request.getContextPath() + "/MesComptes");
             nav.put("Contacts", "#");
+            nav.put("Transaction", request.getContextPath() + "/Transaction");
             request.getSession().setAttribute("connected", true);
         } else {
             request.getSession().setAttribute("connected", false);

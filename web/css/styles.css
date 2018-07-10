@@ -1,7 +1,3 @@
-html{
-    width: -webkit-fill-available; 
-}
-
 html, body, #content, #navbar {
     height: 100%;
 }

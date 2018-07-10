@@ -1,5 +1,5 @@
 package Model;
-// Generated 9 juil. 2018 20:01:58 by Hibernate Tools 4.3.1
+// Generated 10 juil. 2018 23:06:08 by Hibernate Tools 4.3.1
 
 
 
@@ -13,6 +13,7 @@ public class Transactions  implements java.io.Serializable {
      private Integer comptecreditId;
      private Integer comptedebiteId;
      private double montant;
+     private String etat;
 
     public Transactions() {
     }
@@ -22,11 +23,12 @@ public class Transactions  implements java.io.Serializable {
         this.idTransaction = idTransaction;
         this.montant = montant;
     }
-    public Transactions(int idTransaction, Integer comptecreditId, Integer comptedebiteId, double montant) {
+    public Transactions(Integer comptecreditId, Integer comptedebiteId, double montant, String etat) {
        this.idTransaction = idTransaction;
        this.comptecreditId = comptecreditId;
        this.comptedebiteId = comptedebiteId;
        this.montant = montant;
+       this.etat = etat;
     }
    
     public int getIdTransaction() {
@@ -56,6 +58,13 @@ public class Transactions  implements java.io.Serializable {
     
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+    public String getEtat() {
+        return this.etat;
+    }
+    
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 
 

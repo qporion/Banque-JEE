@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 9 juil. 2018 20:01:59 by Hibernate Tools 4.3.1 -->
+<!-- Generated 10 juil. 2018 23:06:08 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Model.Conseiller" table="CONSEILLER" schema="APP" optimistic-lock="version">
         <id name="idConseiller" type="int">
