@@ -1,3 +1,4 @@
+<%@page import="Model.Message"%>
 <%@page import="Model.Agence"%>
 <%@page import="java.util.Map"%>
 <%@page import="Model.Conseiller"%>
@@ -26,7 +27,36 @@
                     + "</div>"
                     + ""
                     + "<div id=\"message-"+conseiller.getKey().getIdConseiller()+"\" class=\"message-float pt-3 col-sm-12 mt-3 collapse\">"
-                    + "<form method=\"POST\" id=\"message\">"
+            );
+            
+            out.print("<div class=\"container mb-3 \">");
+            out.print("<div class=\"row\">");
+            
+            List<Message> messages = bean.getMessages().get(conseiller);
+            for(Map.Entry<Conseiller, List<Message>> message : bean.getMessages().entrySet()) {
+                if (message.getKey().getIdConseiller() == conseiller.getKey().getIdConseiller()) {
+                    messages = message.getValue();
+                    break;
+                }
+            }
+            
+            int idxStop = messages.size()-5;
+            if(messages.size() < 5) {
+                idxStop = 0;
+            }
+
+            for(int i=idxStop; i < messages.size(); i++) {
+                Message message = messages.get(i);
+                String classMessage = "text-right text-info";
+                if (message.getConseillerMsg()) {
+                    classMessage = "text-left text-success";
+                }
+                
+                out.print("<p class=\"message-text bg-dark border-bottom col-sm-12 "+classMessage+"\">"+message.getContenu()+"</p>");
+            }
+            out.print("</div>");
+            out.print("</div>");
+            out.print("<form method=\"POST\" id=\"message\">"
                     + "<div class=\"form-group\">"
                     + "<textarea form =\"message\" name=\"contenu\" class=\"form-control col-sm-12\" rows=\"10\" placeholder=\"Saisissez ici le contenu à envoyer à votre conseiller.\"></textarea>"
                     + "</div>"
@@ -36,7 +66,8 @@
                     + "</div>"
                     + "</form>"
                     + "</div>"
-                    + "</div>");
+                    + "</div>"
+            );
             
             
         }

@@ -39,7 +39,7 @@ public abstract class AbstractServlet extends HttpServlet{
     protected void buildBeans(HttpServletRequest request, String file, ContentBeans bean) {
         Map<String,String> nav = new LinkedHashMap<>();
         nav.put("<i class=\"mdi mdi-home\"></i> Accueil", request.getContextPath() + "/Accueil");
-        nav.put("<i class=\"mdi mdi-home-account\"></i> Agences", "#");
+        nav.put("<i class=\"mdi mdi-home-account\"></i> Agences", request.getContextPath() + "/Agences");
         
         if (request.getSession().getAttribute("client") != null) {
             nav.put("<i class=\"mdi mdi-contacts\"></i> Contacts", request.getContextPath() + "/Contact");

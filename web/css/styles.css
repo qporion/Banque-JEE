@@ -74,5 +74,9 @@ a {
 
 .message-float {
     border-bottom: 1px solid var(--dark);
-    border-TOP: 1px solid var(--dark);
+    border-top: 1px solid var(--dark);
+}
+
+.message-text {
+    overflow: auto;
 }

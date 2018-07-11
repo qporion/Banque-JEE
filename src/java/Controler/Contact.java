@@ -6,10 +6,12 @@ import Model.Client;
 import Model.Compte;
 import Model.Compteclient;
 import Model.Conseiller;
+import Model.Message;
 import Model.Transactions;
 import Orm.QueryHelper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,11 +33,12 @@ public class Contact extends AbstractServlet {
         Client client = this.getClient(request, response);
 
         if (client != null) {
-            String requete = "SELECT {c.*}, {cc.*}, {com.*}, {con.*}, {a.*} FROM Client c"
+            String requete = "SELECT {c.*}, {cc.*}, {com.*}, {con.*}, {a.*}, {m.*} FROM Client c"
                     + " JOIN Compteclient cc ON c.id_client = cc.client_id "
                     + "JOIN Compte com ON cc.compte_id = com.id_compte "
                     + "JOIN Conseiller con ON con.id_conseiller = com.conseiller_id "
                     + "JOIN Agence a ON a.id_agence = con.agence_id "
+                    + "JOIN Message m ON (con.id_conseiller = m.conseiller_id AND c.id_client = m.client_id) "
                     + "WHERE c.id_client = " + client.getIdClient();
 
             Map<String, Class> entities = new LinkedHashMap<>();
@@ -44,18 +47,29 @@ public class Contact extends AbstractServlet {
             entities.put("com", Compte.class);
             entities.put("con", Conseiller.class);
             entities.put("a", Agence.class);
+            entities.put("m", Message.class);
 
             QueryHelper qh = new QueryHelper();
 
             List<Object[]> results = qh.executeQuery(requete, entities);
 
             Map<Conseiller, Agence> conseillers = new LinkedHashMap<>();
+            Map<Conseiller, List<Message>> messages = new LinkedHashMap<>();
             for (Object[] result : results) {
                 Conseiller conseiller = (Conseiller) result[3];
                 Agence agence = (Agence) result[4];
+                Message message = (Message) result[5];
 
                 if (!conseillers.containsKey(conseiller) && conseiller != null) {
                     conseillers.put(conseiller, agence);
+                }
+                
+                if (!messages.containsKey(conseiller) && messages != null) {
+                    messages.put(conseiller, new LinkedList<>());
+                }
+                
+                if (!messages.get(conseiller).contains(message)) {
+                    messages.get(conseiller).add(message);
                 }
             }
 
@@ -63,12 +77,13 @@ public class Contact extends AbstractServlet {
                 bean.setErr("Auncun conseiller n'a été trouvé pour vos comptes.");
             }
             bean.setConseillers(conseillers);
+            bean.setMessages(messages);
 
             this.buildBeans(request, "contact", bean);
             this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
         }
     }
-    
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -100,25 +115,24 @@ public class Contact extends AbstractServlet {
 
         if (client != null) {
             if (request.getParameter("contenu") == null
-                    || request.getParameter("contenu").length() > 0 ) {
+                    || request.getParameter("contenu").length() == 0) {
                 bean.setErr("Un contenu vide ne peut pas être envoyé.");
-            }
+            } else {
+                String idConseiller = request.getParameter("conseiller");
 
-            String idConseiller = request.getParameter("conseiller");
-            
-            String requete = "insert into message(client_id, conseiller_id, contenu) values ("
+                String requete = "insert into message(client_id, conseiller_id, contenu) values ("
                         + client.getIdClient() + ", "
                         + Integer.parseInt(idConseiller) + ", "
                         + "'" + request.getParameter("contenu") + "')";
 
-            QueryHelper qh = new QueryHelper();
-            
-            if (qh.updateOneObject(requete)) {
-                bean.setVal("Votre message a bien été envoyé.");
-            } else {
-                bean.setErr("Votre message a échoué, veuillez réessayer plus tard.");
+                QueryHelper qh = new QueryHelper();
+
+                if (qh.updateOneObject(requete)) {
+                    bean.setVal("Votre message a bien été envoyé.");
+                } else {
+                    bean.setErr("Votre message a échoué, veuillez réessayer plus tard.");
+                }
             }
-            
             this.buildPage(bean, request, response);
         }
     }

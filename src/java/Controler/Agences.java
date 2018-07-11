@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controler;
 
-import Model.Client;
-import Model.Compte;
-import Model.Compteclient;
+import Beans.ContentBeans;
+import Model.Agence;
 import Model.Jour;
 import Orm.QueryHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -23,12 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author p1712620
+ * @author Quentin
  */
-@WebServlet(name = "Accueil", urlPatterns = {"/Accueil"})
-public class Accueil extends AbstractServlet {
-
-    /**
+@WebServlet(name = "Agences", urlPatterns = {"/Agences"})
+public class Agences extends AbstractServlet{
+     /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -39,8 +31,41 @@ public class Accueil extends AbstractServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              
-        this.buildBeans(request, "accueil", null);
+        ContentBeans bean = new ContentBeans();
+        
+                String requete = "SELECT {a.*}, {j.*} FROM Agence a "
+                + "LEFT JOIN Jour j ON j.agence_id = a.id_agence";
+
+        Map<String, Class> entities = new LinkedHashMap<>();
+        entities.put("a", Agence.class);
+        entities.put("j", Jour.class);
+
+        
+        QueryHelper qh = new QueryHelper();
+        List<Object[]> results = qh.executeQuery(requete, entities);
+
+        Map<Agence, List<Jour>> agences = new LinkedHashMap<>();
+
+       for (Object[] result : results) {
+            Agence agence = (Agence) result[0];
+            Jour jour = (Jour) result[1];
+
+            if (!agences.containsKey(agence)) {
+                agences.put(agence, new ArrayList<>());
+            }
+            
+            if(jour != null) {
+                agences.get(agence).add(jour);
+            }
+        }
+        
+        if (agences.isEmpty()) {
+            bean.setErr("Aucune agence trouvée");
+        } else {
+            bean.setAgences(agences);
+        }
+        
+        this.buildBeans(request, "agences", bean);
         this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
     }
 
