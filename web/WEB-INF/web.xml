@@ -18,5 +18,10 @@
         <param-name>js</param-name>
         <param-value></param-value>
     </context-param>
+    
+    <context-param>
+        <param-name>fonts</param-name>
+        <param-value></param-value>
+    </context-param>
 
 </web-app>

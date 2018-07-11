@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11 juil. 2018 22:30:35 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Jour" table="JOUR" schema="APP" optimistic-lock="version">
+        <composite-id name="id" class="Model.JourId">
+            <key-property name="idJour" type="int">
+                <column name="ID_JOUR" />
+            </key-property>
+            <key-property name="agenceId" type="int">
+                <column name="AGENCE_ID" />
+            </key-property>
+        </composite-id>
+        <property name="dateDebCreneau1" type="time">
+            <column name="DATE_DEB_CRENEAU_1" length="8" not-null="true" />
+        </property>
+        <property name="dateFinCreneau1" type="time">
+            <column name="DATE_FIN_CRENEAU_1" length="8" not-null="true" />
+        </property>
+        <property name="dateDebCreneau2" type="time">
+            <column name="DATE_DEB_CRENEAU_2" length="8" not-null="true" />
+        </property>
+        <property name="dateFinCreneau2" type="time">
+            <column name="DATE_FIN_CRENEAU_2" length="8" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,5 +1,5 @@
 package Model;
-// Generated 9 juil. 2018 20:01:58 by Hibernate Tools 4.3.1
+// Generated 11 juil. 2018 22:30:34 by Hibernate Tools 4.3.1
 
 
 
@@ -12,10 +12,9 @@ public class Conseiller  implements java.io.Serializable {
      private int idConseiller;
      private String nom;
      private String prenom;
-     private String adresse;
      private String telephone;
-     private Integer agence;
      private String password;
+     private Integer agenceId;
 
     public Conseiller() {
     }
@@ -24,14 +23,13 @@ public class Conseiller  implements java.io.Serializable {
     public Conseiller(int idConseiller) {
         this.idConseiller = idConseiller;
     }
-    public Conseiller(int idConseiller, String nom, String prenom, String adresse, String telephone, Integer agence, String password) {
+    public Conseiller(int idConseiller, String nom, String prenom, String telephone, String password, Integer agenceId) {
        this.idConseiller = idConseiller;
        this.nom = nom;
        this.prenom = prenom;
-       this.adresse = adresse;
        this.telephone = telephone;
-       this.agence = agence;
        this.password = password;
+       this.agenceId = agenceId;
     }
    
     public int getIdConseiller() {
@@ -55,13 +53,6 @@ public class Conseiller  implements java.io.Serializable {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-    public String getAdresse() {
-        return this.adresse;
-    }
-    
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
     public String getTelephone() {
         return this.telephone;
     }
@@ -69,19 +60,19 @@ public class Conseiller  implements java.io.Serializable {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    public Integer getAgence() {
-        return this.agence;
-    }
-    
-    public void setAgence(Integer agence) {
-        this.agence = agence;
-    }
     public String getPassword() {
         return this.password;
     }
     
     public void setPassword(String password) {
         this.password = password;
+    }
+    public Integer getAgenceId() {
+        return this.agenceId;
+    }
+    
+    public void setAgenceId(Integer agenceId) {
+        this.agenceId = agenceId;
     }
 
 

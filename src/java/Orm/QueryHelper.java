@@ -45,4 +45,42 @@ public class QueryHelper implements Serializable{
 
         return objectList;
     }
+    
+    public List<Object> executeSingleQuery(String query, String key, Class entity) {
+        List<Object> objectList = new ArrayList<>();
+
+        try {
+            Transaction tx = this.session.beginTransaction();
+            SQLQuery sqlQuery = this.session.createSQLQuery(query);
+            sqlQuery.addEntity(key, entity);
+
+            objectList = sqlQuery.list();  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return objectList;
+    }
+    
+    public boolean updateOneObject(String query) {
+        Transaction tx = this.session.beginTransaction();
+        try {
+            SQLQuery sqlQuery = this.session.createSQLQuery(query);
+ 
+            int nbresult = sqlQuery.executeUpdate();
+            
+            if (nbresult != 1) {
+               tx.rollback();
+               return false;
+            } else {
+               tx.commit();
+               return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+        
+        return false;
+    }
 }

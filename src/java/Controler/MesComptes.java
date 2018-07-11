@@ -40,7 +40,7 @@ public class MesComptes extends AbstractServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ContentBeans bean = new ContentBeans();
-        Client client = ((Client) request.getSession().getAttribute("client"));
+        Client client = this.getClient(request, response);
         
         String requete = "SELECT {c.*}, {cc.*}, {co.*}, {t.*} FROM Client c"
                 + " JOIN Compteclient cc ON c.id_client = cc.client_id "
@@ -63,11 +63,11 @@ public class MesComptes extends AbstractServlet {
             Compte compte = (Compte) result[2];
             Transactions transaction = (Transactions) result[3];
             
-            if (!transactions.containsKey(compte)) {
+            if (!transactions.containsKey(compte) && compte != null) {
                 transactions.put(compte, new ArrayList<>());
             }
             
-            transactions.get(compte).add(transaction);
+            transactions.get(compte).add(0, transaction);
         } 
          
         if( transactions.size() == 0) {

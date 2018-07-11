@@ -1,5 +1,5 @@
 package Model;
-// Generated 9 juil. 2018 20:01:58 by Hibernate Tools 4.3.1
+// Generated 11 juil. 2018 22:30:34 by Hibernate Tools 4.3.1
 
 
 
@@ -13,6 +13,7 @@ public class Message  implements java.io.Serializable {
      private Integer clientId;
      private Integer conseillerId;
      private String contenu;
+     private Boolean conseillerMsg;
 
     public Message() {
     }
@@ -21,11 +22,12 @@ public class Message  implements java.io.Serializable {
     public Message(int idMessage) {
         this.idMessage = idMessage;
     }
-    public Message(int idMessage, Integer clientId, Integer conseillerId, String contenu) {
+    public Message(int idMessage, Integer clientId, Integer conseillerId, String contenu, Boolean conseillerMsg) {
        this.idMessage = idMessage;
        this.clientId = clientId;
        this.conseillerId = conseillerId;
        this.contenu = contenu;
+       this.conseillerMsg = conseillerMsg;
     }
    
     public int getIdMessage() {
@@ -55,6 +57,13 @@ public class Message  implements java.io.Serializable {
     
     public void setContenu(String contenu) {
         this.contenu = contenu;
+    }
+    public Boolean getConseillerMsg() {
+        return this.conseillerMsg;
+    }
+    
+    public void setConseillerMsg(Boolean conseillerMsg) {
+        this.conseillerMsg = conseillerMsg;
     }
 
 

@@ -46,6 +46,7 @@ Contributor(s):
   <table-filter match-name="TRANSACTIONS"/>
   <table-filter match-name="MESSAGE"/>
   <table-filter match-name="CLIENT"/>
+  <table-filter match-name="JOUR"/>
   <table-filter match-name="COMPTECLIENT"/>
   <table-filter match-name="AGENCE"/>
 </hibernate-reverse-engineering>

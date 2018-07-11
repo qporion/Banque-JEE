@@ -1,5 +1,5 @@
 package Model;
-// Generated 9 juil. 2018 20:01:58 by Hibernate Tools 4.3.1
+// Generated 11 juil. 2018 22:30:34 by Hibernate Tools 4.3.1
 
 
 
@@ -12,6 +12,7 @@ public class Compte  implements java.io.Serializable {
      private int idCompte;
      private Integer solde;
      private Integer decouvertautorise;
+     private Integer conseillerId;
 
     public Compte() {
     }
@@ -20,10 +21,11 @@ public class Compte  implements java.io.Serializable {
     public Compte(int idCompte) {
         this.idCompte = idCompte;
     }
-    public Compte(int idCompte, Integer solde, Integer decouvertautorise) {
+    public Compte(int idCompte, Integer solde, Integer decouvertautorise, Integer conseillerId) {
        this.idCompte = idCompte;
        this.solde = solde;
        this.decouvertautorise = decouvertautorise;
+       this.conseillerId = conseillerId;
     }
    
     public int getIdCompte() {
@@ -46,6 +48,13 @@ public class Compte  implements java.io.Serializable {
     
     public void setDecouvertautorise(Integer decouvertautorise) {
         this.decouvertautorise = decouvertautorise;
+    }
+    public Integer getConseillerId() {
+        return this.conseillerId;
+    }
+    
+    public void setConseillerId(Integer conseillerId) {
+        this.conseillerId = conseillerId;
     }
 
 

@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Map"%>
 <%@page import="Model.Compte"%>
 <%@page import="java.util.List"%>
@@ -12,7 +13,7 @@
                     + "<h5 class=\"mb-0\">"
                     + "<div class=\"row p-3\" data-toggle=\"collapse\" data-target=\"#body-compte-"+entrySet.getKey().getIdCompte()+"\" aria-expanded=\"false\" "
                     + "aria-controls=\"body-compte-"+entrySet.getKey().getIdCompte()+"\">"
-                    + "<div class=\"col-sm-6\">Compte n�"+entrySet.getKey().getIdCompte()+"</div>"
+                    + "<div class=\"col-sm-6\">Compte n°"+entrySet.getKey().getIdCompte()+"</div>"
                     + "<div class=\"col-sm-6 text-right\">"+entrySet.getKey().getSolde()+" euros</div>"
                     + "</div>"
                     + "</h5>"
@@ -23,9 +24,10 @@
                     + "<table class=\"table table-striped\">"
                     + "<thead>"
                     + "<tr>"
-                    + "<th scope=\"col\">Num�ro de la transaction</th>"
+                    + "<th scope=\"col\">Numéro de la transaction</th>"
                     + "<th scope=\"col\">Compte</th>"
                     + "<th scope=\"col\">Montant</th>"
+                    + "<th scope=\"col\">Etat</th>"
                     + "</tr>"
                     + "</thead>"
                     + "<tbody>"
@@ -36,7 +38,15 @@
                         + "<td>" + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? t.getComptedebiteId() : t.getComptecreditId()) + "</td>"
                         + "<td class=\"" + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? "text-success" : "text-danger") + "\">"
                         + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? "" : "-") + t.getMontant() + "</td>"
-                        + "</tr>");
+                        );
+                if (t.getEtat().equals("ATT")) {
+                    out.print("<td class=\"text-warning\">En attente de validation</td>");
+                } else  if (t.getEtat().equals("VAL")) {
+                    out.print("<td class=\"text-success\">Validée</td>");
+                } else {
+                    out.print("<td class=\"text-danger\">Refusée</td>");
+                }
+                out.print("</tr>");
             }
             out.print("</tbody></table></div></div></div>");
         }

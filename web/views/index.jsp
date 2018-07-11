@@ -4,9 +4,10 @@
 <html>
     <head>
         <title>Banque</title>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" media="all"   />
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -16,7 +17,7 @@
         <div class="h-100">
             <nav class="navbar navbar-dark bg-dark pb-0 px-0">
               <div class="row w-100 ">
-                <div class="col-3 col-sm-2 pb-0 pr-0">
+                <div class="col-3 col-sm-2 pb-0 pr-0 h-auto">
                     <button class="navbar-toggler mb-2 mx-auto d-block" type="button">
                       <span class="navbar-toggler-icon"></span>
                     </button>
@@ -56,18 +57,22 @@
 
                 <div id="content" class="col-9 col-sm-10">
                     <%
-                        if (bean.getErr() == "" || bean.getErr() == null) {
-                            %><jsp:include page="${bean.file}"></jsp:include><%
-                        } else {
-                            out.print("<div class=\"err\">"
-                                + bean.getErr() + "</div>"
-                            );
+                        if (bean.getErr() != "" && bean.getErr() != null) {
+                            %><%@include file="/views/alertErreur.jsp" %><%
+                        } else if (bean.getVal()!= "" && bean.getVal() != null) {
+                            %><%@include file="/views/alertValide.jsp" %><%
                         }
+                        %><jsp:include page="${bean.file}"></jsp:include><%
                     %>
                     
                 </div>
             </div>
         </div>
     </body>
+    <footer>
+        <div class="bg-dark h-25">
+            Footer
+        </div>
+    </footer>
 </html>
 
