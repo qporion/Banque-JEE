@@ -1,9 +1,12 @@
 package Beans;
 
+import Model.Agence;
 import Model.Compte;
+import Model.Conseiller;
 import Model.Transactions;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +20,7 @@ public class ContentBeans implements Serializable {
     private String err = "", val = "";
     private Map<Compte, List<Transactions>> transactions = null;
     private List<Compte> comptes = new ArrayList<>();
+    private Map<Conseiller, Agence> conseillers = new LinkedHashMap<>();
 
     public String getFile() {
         return file;
@@ -65,5 +69,15 @@ public class ContentBeans implements Serializable {
     public void setComptes(List<Compte> comptes) {
         this.comptes = comptes;
     }
+
+    public Map<Conseiller, Agence> getConseillers() {
+        return conseillers;
+    }
+
+    public void setConseillers(Map<Conseiller, Agence> conseillers) {
+        this.conseillers = conseillers;
+    }
+
+ 
     
 }

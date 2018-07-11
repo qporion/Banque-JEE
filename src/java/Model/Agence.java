@@ -1,5 +1,5 @@
 package Model;
-// Generated 10 juil. 2018 23:06:08 by Hibernate Tools 4.3.1
+// Generated 11 juil. 2018 21:07:29 by Hibernate Tools 4.3.1
 
 
 
@@ -11,6 +11,8 @@ public class Agence  implements java.io.Serializable {
 
      private int idAgence;
      private String nom;
+     private String adresse;
+     private String telephone;
 
     public Agence() {
     }
@@ -19,9 +21,11 @@ public class Agence  implements java.io.Serializable {
     public Agence(int idAgence) {
         this.idAgence = idAgence;
     }
-    public Agence(int idAgence, String nom) {
+    public Agence(int idAgence, String nom, String adresse, String telephone) {
        this.idAgence = idAgence;
        this.nom = nom;
+       this.adresse = adresse;
+       this.telephone = telephone;
     }
    
     public int getIdAgence() {
@@ -37,6 +41,20 @@ public class Agence  implements java.io.Serializable {
     
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    public String getAdresse() {
+        return this.adresse;
+    }
+    
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+    public String getTelephone() {
+        return this.telephone;
+    }
+    
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
 

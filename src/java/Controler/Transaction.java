@@ -31,7 +31,7 @@ public class Transaction extends AbstractServlet {
 
     private void buildPage(ContentBeans bean, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Client client = ((Client) request.getSession().getAttribute("client"));
+        Client client = this.getClient(request, response);
 
         String requete = "SELECT {c.*}, {cc.*}, {co.*} FROM Client c "
                 + "JOIN Compteclient cc ON c.id_client = cc.client_id "

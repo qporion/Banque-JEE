@@ -5,22 +5,17 @@
  */
 package Controler;
 
-import Beans.ContentBeans;
 import Model.Client;
 import Model.Compte;
 import Model.Compteclient;
 import Orm.QueryHelper;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
