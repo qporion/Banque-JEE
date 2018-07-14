@@ -11,7 +11,7 @@
                 <%
                     for (Map.Entry<Compte, List<Transactions>> entrySet : bean.getTransactions().entrySet()) {
                         out.print("<option value=\""+entrySet.getKey().getIdCompte()+"\">"
-                                + "Compte numéro : "+entrySet.getKey().getIdCompte()
+                                + "Compte Débité numéro : : "+entrySet.getKey().getIdCompte()
                                 + "</option>");
                     }
                 %>  
@@ -23,7 +23,7 @@
                 <%
                     for (Compte compte : bean.getComptes()) {
                         out.print("<option value=\""+compte.getIdCompte()+"\">"
-                                + "Compte numéro : "+compte.getIdCompte()
+                                + "Compte Crédité numéro : "+compte.getIdCompte()
                                 + "</option>");
                     }
                 %>  
