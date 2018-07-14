@@ -37,8 +37,8 @@ public class Contact extends AbstractServlet {
                     + " JOIN Compteclient cc ON c.id_client = cc.client_id "
                     + "JOIN Compte com ON cc.compte_id = com.id_compte "
                     + "JOIN Conseiller con ON con.id_conseiller = com.conseiller_id "
-                    + "JOIN Agence a ON a.id_agence = con.agence_id "
-                    + "JOIN Message m ON (con.id_conseiller = m.conseiller_id AND c.id_client = m.client_id) "
+                    + "LEFT JOIN Agence a ON a.id_agence = con.agence_id "
+                    + "LEFT JOIN Message m ON (con.id_conseiller = m.conseiller_id AND c.id_client = m.client_id) "
                     + "WHERE c.id_client = " + client.getIdClient();
 
             Map<String, Class> entities = new LinkedHashMap<>();
@@ -68,7 +68,7 @@ public class Contact extends AbstractServlet {
                     messages.put(conseiller, new LinkedList<>());
                 }
                 
-                if (!messages.get(conseiller).contains(message)) {
+                if (!messages.get(conseiller).contains(message) && messages != null) {
                     messages.get(conseiller).add(message);
                 }
             }
