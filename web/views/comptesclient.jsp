@@ -7,6 +7,7 @@
 <div class="form-row m-4">
     <label for="decouvert">N'afficher que les comptes en découvert</label>
     <input id="decouvert" class="form-check ml-3 mt-2" id="decouvert" type="checkbox" name="decouvert" />
+    <form method="POST"><input type="submit" class="ml-5 btn btn-success" value="Créer un compte"/></form>
 </div>
 <table class="table table-hover">
   <thead>

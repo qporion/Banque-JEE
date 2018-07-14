@@ -45,6 +45,14 @@ const addProtoype = function(e) {
     }
     
     $(target).html($(target).html()+prototype)
+    $('*[data-idx-remove]').on('click', removeProtoype)
+}
+
+const removeProtoype = function(e) {
+    let target = $.find('*[data-idx='+$(e.currentTarget).attr('data-idx-remove')+']')
+    $(target).remove();
+    $(e.currentTarget).parent().remove()
+    console.log($(target))
 }
 
 $(document).ready(function(){
@@ -53,4 +61,5 @@ $(document).ready(function(){
     $('#decouvert').on('change', changeTableCompteClient);
     $('.valid-form').on('click', validForm);
     $('*[data-prototype]').on('click', addProtoype)
+    $('*[data-idx-remove]').on('click', removeProtoype)
 });

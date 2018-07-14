@@ -5,13 +5,10 @@
  */
 package Orm;
 
-import Model.Client;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -83,4 +80,25 @@ public class QueryHelper implements Serializable{
         
         return false;
     }
+    
+     public boolean updateObjects(String query) {
+        Transaction tx = this.session.beginTransaction();
+        try {
+            SQLQuery sqlQuery = this.session.createSQLQuery(query);
+ 
+            int nbresult = sqlQuery.executeUpdate();
+            
+            tx.commit();
+            return true;
+        } catch (Exception e) { 
+            e.printStackTrace();
+            tx.rollback();
+        }
+        return false;
+    }
+     
+     public void commit() {
+         Transaction tx = this.session.beginTransaction();
+         tx.commit();
+     }
 }
