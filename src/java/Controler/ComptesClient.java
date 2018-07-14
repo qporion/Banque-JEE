@@ -237,29 +237,55 @@ public class ComptesClient extends AbstractServlet {
                 bean.setErr("Votre modification a échoué, veuillez réessayer plus tard.");
             }
         } else {
+            List<Compte> comptes = this.getAllCompte();
+            
             String requete = "INSERT INTO compte(solde, decouvertautorise, conseiller_id) "
                     + "VALUES (" + request.getParameter("solde") + ", " + request.getParameter("decouvert") + ""
                     + ", " + this.getConseiller(request, response).getIdConseiller() + ")";
 
             QueryHelper qh = new QueryHelper();
+
             if (qh.updateOneObject(requete)) {
                 bean.setVal("Votre création a été effectuée.");
             } else {
                 bean.setErr("Votre création a échoué, veuillez réessayer plus tard.");
             }
 
+            int idCompte = 0;
+            
+            for(Compte compte : this.getAllCompte()) {
+                if (!comptes.contains(compte)) {
+                    idCompte = compte.getIdCompte();
+                }
+            }
+            
             requete = "INSERT INTO compteclient(client_id, compte_id) VALUES ";
             for (Integer idClient : idClients) {
                 if (cpt++ != 0) {
-                    requete += ", (" + idClient + ", " + request.getParameter("compte") + ")";
+                    requete += ", (" + idClient + ", " + idCompte + ")";
                 } else {
-                    requete += "(" + idClient + ", " + request.getParameter("compte") + ")";
+                    requete += "(" + idClient + ", " + idCompte + ")";
                 }
             }
 
             qh = new QueryHelper();
             qh.updateObjects(requete);
         }
+    }
+
+    private List<Compte> getAllCompte() {
+        String requete = "SELECT {c.*} FROM Compte c ";
+
+        QueryHelper qh = new QueryHelper();
+        List<Object> result = qh.executeSingleQuery(requete, "c", Compte.class);
+
+        List<Compte> comptes = new LinkedList<>();
+
+        for (Object compte : result) {
+            comptes.add((Compte) compte);
+        }
+        
+        return comptes
     }
 
     /**

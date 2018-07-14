@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/Quentin/Documents/NetBeansProjects/Banque-JEE/web/views/visucompte.jsp</file>
             <file>file:/D:/Quentin/Documents/NetBeansProjects/Banque-JEE/src/java/Controler/ComptesClient.java</file>
+            <file>file:/D:/Quentin/Documents/NetBeansProjects/Banque-JEE/src/java/Orm/QueryHelper.java</file>
         </group>
     </open-files>
 </project-private>
