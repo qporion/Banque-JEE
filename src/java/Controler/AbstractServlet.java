@@ -43,7 +43,7 @@ public abstract class AbstractServlet extends HttpServlet{
             nav.put("<i class=\"mdi mdi-swap-horizontal\"></i> Transaction", request.getContextPath() + "/Transaction");
             request.getSession().setAttribute("connected", true);
         } else if (request.getSession().getAttribute("conseiller") != null) {
-            nav.put("<i class=\"mdi mdi-contacts\"></i> Clients", request.getContextPath() + "/Clients");
+            nav.put("<i class=\"mdi mdi-contacts\"></i> Clients", request.getContextPath() + "/ContactConseiller");
             nav.put("<i class=\"mdi mdi-comment-text-multiple-outline\"></i> Comptes client", request.getContextPath() + "/ComptesClient");
             nav.put("<i class=\"mdi mdi-swap-horizontal\"></i> Virement", request.getContextPath() + "/Transaction");
             request.getSession().setAttribute("connected", true); 
