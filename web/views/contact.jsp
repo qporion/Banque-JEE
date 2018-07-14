@@ -15,7 +15,7 @@
         
         for(Map.Entry<Conseiller, Agence> conseiller : bean.getConseillers().entrySet()) {
             out.print("<div class=\"row mt-3\">"
-                    + "<div class=\"conseiller bg-dark text-success\" data-toggle=\"collapse\" "
+                    + "<div class=\"bubble bg-dark text-success\" data-toggle=\"collapse\" "
                     + "data-target=\"#message-"+conseiller.getKey().getIdConseiller()+"\" aria-expanded=\"false\" "
                     + "aria-controls=\"message-"+conseiller.getKey().getIdConseiller()+"\">"
                     + "<i class=\"mdi mdi-account-outline\"></i>"

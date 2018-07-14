@@ -11,9 +11,33 @@ const changeClassContent = function (e) {
     }
 }
 
+const changeFormLogIn = function (e) {
+    $(e.currentTarget).parent().parent().find('input[name=compte]').replaceWith(
+            "<input type=\"text\" class=\"form-control\" name=\"login\" placeholder=\"prénom.nom\" />"
+            );
+}
+
+const changeTableCompteClient = function(e) {
+    if ($(e.currentTarget).is(':checked')) {
+        $('tbody > tr').each(function(){
+            if ( ! $(this).hasClass("bg-danger") ) {
+                $(this).hide()
+            }
+        })
+    } else {
+        $('tbody > tr').each(function(){
+           $(this).show()
+        })
+    }
+}
+
+const validForm = function(e) {
+    $(e.currentTarget).closest('form').submit()
+}
 
 $(document).ready(function(){
-    $('.navbar-toggler').on('click', function(e) {
-        changeClassContent(e);
-    })
+    $('.navbar-toggler').on('click', changeClassContent);
+    $('#switch-conseiller').on('click', changeFormLogIn);
+    $('#decouvert').on('change', changeTableCompteClient);
+    $('.valid-form').on('click', validForm);
 });

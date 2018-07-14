@@ -1,6 +1,7 @@
 package Beans;
 
 import Model.Agence;
+import Model.Client;
 import Model.Compte;
 import Model.Conseiller;
 import Model.Jour;
@@ -25,6 +26,7 @@ public class ContentBeans implements Serializable {
     private Map<Conseiller, Agence> conseillers = new LinkedHashMap<>();
     private Map<Conseiller, List<Message>> messages = new LinkedHashMap<>();
     private Map<Agence, List<Jour>> agences = new LinkedHashMap<>();
+    private Map<Compte, List<Client>> comptesClient = new LinkedHashMap<>();
 
     public String getFile() {
         return file;
@@ -98,5 +100,11 @@ public class ContentBeans implements Serializable {
         this.agences = agences;
     }
 
-    
+    public Map<Compte, List<Client>> getComptesClient() {
+        return comptesClient;
+    }
+
+    public void setComptesClient(Map<Compte, List<Client>> comptesClient) {
+        this.comptesClient = comptesClient;
+    }
 }
