@@ -38,7 +38,7 @@ public class ContactConseiller extends AbstractServlet {
         Conseiller conseiller = this.getConseiller(request, response);
 
         if (conseiller != null) {
-            String requete = "SELECT c.*, com.*, cc.*, cl.*, a.*, m.* "
+            String requete = "SELECT {c.*}, {com.*}, {cc.*}, {cl.*}, {a.*}, {m.*} "
                             +"FROM Conseiller c "
                             +"JOIN Compte com ON com.CONSEILLER_ID = c.id_conseiller "
                             +"JOIN Compteclient cc ON com.id_compte = cc.compte_id "
@@ -62,8 +62,8 @@ public class ContactConseiller extends AbstractServlet {
             Map<Client, Agence> clients = new LinkedHashMap<>();
             Map<Client, List<Message>> messages = new LinkedHashMap<>();
             for (Object[] result : results) {
-                Client client = (Client) result[4];
-                Agence agence = (Agence) result[5];
+                Client client = (Client) result[3];
+                Agence agence = (Agence) result[4];
                 Message message = (Message) result[5];
 
                 if (!clients.containsKey(client) && client != null) {
@@ -74,7 +74,7 @@ public class ContactConseiller extends AbstractServlet {
                     messages.put(client, new LinkedList<>());
                 }
                 
-                if (!messages.get(client).contains(message) && messages != null) {
+                if (!messages.get(client).contains(message) && message != null) {
                     messages.get(client).add(message);
                 }
             }
@@ -102,8 +102,7 @@ public class ContactConseiller extends AbstractServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ContentBeans bean = new ContentBeans();
-        this.buildBeans(request, "contactConseiller", bean);
-            this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
+        this.buildPage(bean, request, response);
     }
 
     /**
