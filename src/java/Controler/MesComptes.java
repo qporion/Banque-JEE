@@ -42,10 +42,10 @@ public class MesComptes extends AbstractServlet {
         Client client = this.getClient(request, response);
         
         if (client != null) {
-            String requete = "SELECT {c.*}, {cc.*}, {co.*}, {t.*} FROM Client c"
-                    + " JOIN Compteclient cc ON c.id_client = cc.client_id "
+            String requete = "SELECT {c.*}, {cc.*}, {co.*}, {t.*} FROM Client c "
+                    + "JOIN Compteclient cc ON c.id_client = cc.client_id "
                     + "JOIN Compte co ON cc.compte_id = co.id_compte "
-                    + "JOIN Transactions t ON t.comptecredit_id = co.id_compte OR t.comptedebite_id = co.id_compte "
+                    + "LEFT JOIN Transactions t ON t.comptecredit_id = co.id_compte OR t.comptedebite_id = co.id_compte "
                     + "WHERE c.id_client = " + client.getIdClient()
                     ;
 
@@ -67,7 +67,9 @@ public class MesComptes extends AbstractServlet {
                     transactions.put(compte, new ArrayList<>());
                 }
 
-                transactions.get(compte).add(0, transaction);
+                if(transaction != null) {
+                    transactions.get(compte).add(0, transaction);
+                }
             } 
 
             if( transactions.size() == 0) {

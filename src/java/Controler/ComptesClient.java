@@ -71,7 +71,6 @@ public class ComptesClient extends AbstractServlet {
                 }
 
                 comptes.get(compte).add(0, client);
-
             }
 
             if (comptes.isEmpty()) {
@@ -99,33 +98,73 @@ public class ComptesClient extends AbstractServlet {
         ContentBeans bean = new ContentBeans();
         Conseiller conseiller = this.getConseiller(request, response);
         if (conseiller != null) {
-            String requete = "SELECT {c.*}, {co.*} FROM Conseiller c "
+            String requete = "SELECT {c.*}, {co.*}, {cc.*}, {cl.*}, {t.*} FROM Conseiller c "
                     + "JOIN Compte co ON c.id_conseiller = co.conseiller_id "
-                    + "WHERE c.id_conseiller = " + conseiller.getIdConseiller()
-                    + " AND co.id_compte = " + request.getParameter("compte");
+                    + "JOIN Compteclient cc ON cc.compte_id = co.id_compte "
+                    + "JOIN Client cl ON cl.id_client = cc.client_id "
+                    + "LEFT JOIN Transactions t ON (t.comptecredit_id = co.id_compte OR t.comptedebite_id = co.id_compte) "
+                    + "WHERE c.id_conseiller = " + conseiller.getIdConseiller();
 
+            if (!request.getParameter("compte").isEmpty()) {
+                requete += " AND co.id_compte = "+request.getParameter("compte");
+            }
+            
             Map<String, Class> entities = new LinkedHashMap<>();
             entities.put("c", Conseiller.class);
             entities.put("co", Compte.class);
+            entities.put("cc", Compteclient.class);
+            entities.put("cl", Client.class);
+            entities.put("t", Transactions.class);
 
             QueryHelper qh = new QueryHelper();
             List<Object[]> results = qh.executeQuery(requete, entities);
 
-            List<Compte> comptes = new LinkedList<>();
+            Map<Compte, List<Client>> comptes = new LinkedHashMap<>();
+            Map<Compte, List<Transactions>> transactions = new LinkedHashMap<>();
 
             for (Object[] result : results) {
                 Compte compte = (Compte) result[1];
-                comptes.add(0, compte);
+                Client client = (Client) result[3];
+                Transactions transaction = (Transactions) result[4];
 
+                if (!comptes.containsKey(compte) && compte != null) {
+                    comptes.put(compte, new ArrayList<>());
+                }
+
+                if (!comptes.get(compte).contains(client)) {
+                    comptes.get(compte).add(0, client);
+                }
+                
+                if (!transactions.containsKey(compte) && compte != null) {
+                    transactions.put(compte, new ArrayList<>());
+                }
+
+                if(transaction != null) {
+                    transactions.get(compte).add(0, transaction);
+                }
             }
 
             if (comptes.isEmpty()) {
                 bean.setErr("Aucun compte retrouvé");
             } else {
-                bean.setComptes(comptes);
+                bean.setComptesClient(comptes);
+                bean.setTransactions(transactions);
             }
             
-            this.buildBeans(request, "comptesclient", bean);
+             requete = "SELECT {c.*} FROM Client c ";
+
+            qh = new QueryHelper();
+            List<Object> result = qh.executeSingleQuery(requete, "c", Client.class);
+
+            List<Client> clients = new LinkedList<>();
+
+            for (Object client : result) {
+                clients.add((Client) client);
+            }
+            
+            bean.setClients(clients);
+            
+            this.buildBeans(request, "visucompte", bean);
             this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
         }
     }

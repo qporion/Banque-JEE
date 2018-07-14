@@ -35,9 +35,22 @@ const validForm = function(e) {
     $(e.currentTarget).closest('form').submit()
 }
 
+const addProtoype = function(e) {
+    let container = $.find($(e.currentTarget).attr("data-prototype"))
+    let target = $.find($(container).attr("data-target"))
+    let prototype = $(container).html().replace('__INDEX__', ''+$(target).find('*[data-idx]').length);
+    
+    while (prototype.indexOf('__INDEX__') !== -1) {
+        prototype = prototype.replace('__INDEX__', ''+$(target).find('*[data-idx]').length);
+    }
+    
+    $(target).html($(target).html()+prototype)
+}
+
 $(document).ready(function(){
     $('.navbar-toggler').on('click', changeClassContent);
     $('#switch-conseiller').on('click', changeFormLogIn);
     $('#decouvert').on('change', changeTableCompteClient);
     $('.valid-form').on('click', validForm);
+    $('*[data-prototype]').on('click', addProtoype)
 });
