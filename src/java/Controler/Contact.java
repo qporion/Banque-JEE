@@ -64,7 +64,7 @@ public class Contact extends AbstractServlet {
                     conseillers.put(conseiller, agence);
                 }
                 
-                if (!messages.containsKey(conseiller) && messages != null) {
+                if (!messages.containsKey(conseiller)) {
                     messages.put(conseiller, new LinkedList<>());
                 }
                 

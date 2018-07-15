@@ -33,7 +33,7 @@
                     + "<tbody>"
             );
             
-           if (!entrySet.getValue().isEmpty()){
+            if (!entrySet.getValue().isEmpty()) {
                 for (Transactions t : entrySet.getValue()) {
                     out.print("<tr>"
                             + "<th scope=\"row\">" + t.getIdTransaction() + "</th>"
