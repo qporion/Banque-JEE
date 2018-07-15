@@ -33,17 +33,18 @@
             out.print("<div class=\"row\">");
             
             List<Message> messages = bean.getMessages().get(conseiller);
-            
+
             for(Map.Entry<Conseiller, List<Message>> message : bean.getMessages().entrySet()) {
-                if (message.getKey().getIdConseiller() == conseiller.getKey().getIdConseiller()) {
-                    messages = message.getValue();
-                    break;
+                    if (message.getKey().getIdConseiller() == conseiller.getKey().getIdConseiller()) {
+                        messages = message.getValue();
+                        break;
+                    }
                 }
-            }
-            if (messages != null) {
-                int idxStop = messages.size()-5;
-                if(messages.size() < 5) {
-                    idxStop = 0;
+
+                if(messages != null){
+                    int idxStop = messages.size()-5;
+                    if(messages.size() < 5) {
+                        idxStop = 0;
                 }
 
                 for(int i=idxStop; i < messages.size(); i++) {
@@ -70,8 +71,6 @@
                     + "</div>"
                     + "</div>"
             );
-            
-            
         }
     %>
 </div>

@@ -66,8 +66,8 @@ public class MesComptes extends AbstractServlet {
                 if (!transactions.containsKey(compte) && compte != null) {
                     transactions.put(compte, new ArrayList<>());
                 }
-
-                if(transaction != null) {
+                
+                if(transaction != null){
                     transactions.get(compte).add(0, transaction);
                 }
             } 
