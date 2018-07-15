@@ -24,7 +24,7 @@ public class ContentBeans implements Serializable {
     private Map<Compte, List<Transactions>> transactions = null;
     private List<Compte> comptes = new ArrayList<>();
     private Map<Conseiller, Agence> conseillers = new LinkedHashMap<>();
-    private Map<Client, Agence> clients = new LinkedHashMap<>();
+    private Map<Client, Agence> clientsAgence = new LinkedHashMap<>();
     private Map<Conseiller, List<Message>> messages = new LinkedHashMap<>();
     private Map<Client, List<Message>> messagesConseiller = new LinkedHashMap<>();
     private Map<Agence, List<Jour>> agences = new LinkedHashMap<>();
@@ -87,12 +87,12 @@ public class ContentBeans implements Serializable {
         this.conseillers = conseillers;
     }
     
-    public Map<Client, Agence> getClient() {
-        return clients;
+    public Map<Client, Agence> getClientsAgence() {
+        return clientsAgence;
     }
 
-    public void setClient(Map<Client, Agence> clients) {
-        this.clients = clients;
+    public void setClientsAgence(Map<Client, Agence> clientsAgence) {
+        this.clientsAgence = clientsAgence;
     }
 
     public Map<Conseiller, List<Message>> getMessages() {

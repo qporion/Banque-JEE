@@ -12,13 +12,13 @@
 <jsp:useBean id="bean" type="Beans.ContentBeans" scope="request"/>
 <div>
     <%
-        if (bean.getClient().size() > 1) {
+        if (bean.getClientsAgence().size() > 1) {
             out.print("<h2>Vos Clients</h2>");
         } else {
             out.print("<h2>Votre Client</h2>");
         }
         
-        for(Map.Entry<Client, Agence> client : bean.getClient().entrySet()) {
+        for(Map.Entry<Client, Agence> client : bean.getClientsAgence().entrySet()) {
             out.print("<div class=\"row mt-3\">"
                     + "<div class=\"bubble bg-dark text-success\" data-toggle=\"collapse\" "
                     + "data-target=\"#message-"+client.getKey().getIdClient()+"\" aria-expanded=\"false\" "

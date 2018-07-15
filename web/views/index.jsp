@@ -22,11 +22,11 @@
                       <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
-                <div class="col-6 col-sm-7 navbar-title p-0">
+                <div class="col-5 col-sm-7 navbar-title p-0">
                     
                 </div>
                 
-                <div class="col-3 col-sm-3 navbar-title pb-0 text-right pr-3 pt-2">
+                <div class="col-4 col-sm-3 navbar-title pb-0 text-right pr-3 pt-2">
                     <jsp:useBean id="connected" type="Boolean" scope="session"/>
                     <%
                         if (connected) {

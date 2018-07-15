@@ -2,8 +2,16 @@ html, body, #content, #navbar {
     height: 100%;
 }
 
+#content {
+    overflow: auto;
+}
+
 .row {
     margin: 0;
+}
+
+.card {
+    width: fit-content;
 }
 
 p {
@@ -99,4 +107,17 @@ a {
 
 .message-text {
     overflow: auto;
+}
+
+.cash-accueil {
+    font-size: 15em;
+    border-radius: 50%;
+    display: flex;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.cash-accueil i { 
+    display: flex;
+    margin: auto;
 }

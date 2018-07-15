@@ -82,7 +82,7 @@ public class ContactConseiller extends AbstractServlet {
             if (clients.size() < 1) {
                 bean.setErr("Auncun Client n'a été trouvé pour vos comptes.");
             }
-            bean.setClient(clients);
+            bean.setClientsAgence(clients);
             bean.setMessagesConseiller(messages);
 
             this.buildBeans(request, "contactConseiller", bean);

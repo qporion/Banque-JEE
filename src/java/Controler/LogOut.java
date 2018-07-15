@@ -36,6 +36,7 @@ public class LogOut extends AbstractServlet {
             throws ServletException, IOException {
         
         request.getSession().removeAttribute("client");
+        request.getSession().removeAttribute("conseiller");
         
         this.buildBeans(request, "accueil", null);                   
         this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);

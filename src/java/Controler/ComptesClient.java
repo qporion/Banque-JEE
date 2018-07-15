@@ -285,7 +285,7 @@ public class ComptesClient extends AbstractServlet {
             comptes.add((Compte) compte);
         }
         
-        return comptes
+        return comptes;
     }
 
     /**

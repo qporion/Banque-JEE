@@ -13,7 +13,7 @@
                     + "<h5 class=\"mb-0\">"
                     + "<div class=\"row p-3\" data-toggle=\"collapse\" data-target=\"#body-compte-"+entrySet.getKey().getIdCompte()+"\" aria-expanded=\"false\" "
                     + "aria-controls=\"body-compte-"+entrySet.getKey().getIdCompte()+"\">"
-                    + "<div class=\"col-sm-6\">Compte n°"+entrySet.getKey().getIdCompte()+"</div>"
+                    + "<div class=\"col-sm-6 \">Compte n°"+entrySet.getKey().getIdCompte()+"</div>"
                     + "<div class=\"col-sm-6 text-right\">"+entrySet.getKey().getSolde()+" euros</div>"
                     + "</div>"
                     + "</h5>"
