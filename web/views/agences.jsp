@@ -11,7 +11,7 @@
         for (Map.Entry<Agence, List<Jour>> agences : bean.getAgences().entrySet()) {
             out.print("<div class=\"card border-success col-sm-6\">"
                     + "<div class=\"card-body\">"
-                    + "<div class=\"conseiller bg-dark text-success m-auto\" data-toggle=\"collapse\" "
+                    + "<div class=\"bubble bg-dark text-success m-auto\" data-toggle=\"collapse\" "
                     + "data-target=\"#agence-" + agences.getKey().getIdAgence() + "\" aria-expanded=\"false\" "
                     + "aria-controls=\"agence-" + agences.getKey().getIdAgence() + "\">"
                     + "<i class=\"mdi mdi-home-account\"></i>"

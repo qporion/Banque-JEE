@@ -5,9 +5,11 @@
  */
 package Controler;
 
+import Beans.ContentBeans;
 import Model.Client;
 import Model.Compte;
 import Model.Compteclient;
+import Model.Conseiller;
 import Orm.QueryHelper;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +56,60 @@ public class LogIn extends AbstractServlet {
             throws ServletException, IOException {
         
         String encryptedPass = this.database.encryptedMessage(request.getParameter("password"));
+        ContentBeans bean = null;
         
+        if (request.getParameter("compte") != null && !request.getParameter("compte").isEmpty()) {
+            bean = identificationClient(request, encryptedPass);
+        } else if (request.getParameter("login") != null && !request.getParameter("login").isEmpty()) {
+            bean = identificationConseiller(request, encryptedPass);
+        }
+
+        this.buildBeans(request, "accueil", bean);                   
+        this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    private ContentBeans identificationConseiller(HttpServletRequest request, String encryptedPass) {
+        ContentBeans bean = new ContentBeans();
+        String login = request.getParameter("login");
+        
+        if (login.contains(".")) { 
+            String requete = "SELECT {c.*} FROM Conseiller c "
+                    + "WHERE c.password = '" + encryptedPass + "' "
+                    + "AND UPPER(c.prenom) = UPPER('" + login.substring(0, login.indexOf('.')) + "') "
+                    + "AND UPPER(c.nom) = UPPER('" + login.substring(login.indexOf('.')+1) + "')"
+                    ;
+
+            QueryHelper qh = new QueryHelper();
+
+            List<Object> results = qh.executeSingleQuery(requete, "c", Conseiller.class);
+
+            List<Conseiller> conseillers = new ArrayList<>();
+
+            for(Object cons : results) {
+                conseillers.add((Conseiller) cons);
+            }
+            
+            if(conseillers.size() != 1) {
+                bean.setErr("Identification impossible");
+            } else {
+                request.getSession().setAttribute("conseiller", conseillers.get(0));
+            }
+        }
+        return bean;
+    }
+    
+    private ContentBeans identificationClient (HttpServletRequest request, String encryptedPass) {
+        ContentBeans bean = new ContentBeans();
         String requete = "SELECT {c.*}, {cc.*}, {co.*} FROM Client c"
                 + " JOIN Compteclient cc ON c.id_client = cc.client_id "
                 + "JOIN Compte co ON cc.compte_id = co.id_compte "
@@ -76,24 +131,12 @@ public class LogIn extends AbstractServlet {
             clients.add((Client) result[0]); 
         }
         
-        if( clients == null || clients.size() != 1) {
-            System.err.println("Identification impossible"); //@TODO
+        if(clients.size() != 1) {
+            bean.setErr("Identification impossible");
         } else {
             request.getSession().setAttribute("client", clients.get(0));
         }
         
-        this.buildBeans(request, "accueil", null);                   
-        this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
+        return bean;
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

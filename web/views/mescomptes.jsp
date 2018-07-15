@@ -32,21 +32,24 @@
                     + "</thead>"
                     + "<tbody>"
             );
-            for (Transactions t : entrySet.getValue()) {
-                out.print("<tr>"
-                        + "<th scope=\"row\">" + t.getIdTransaction() + "</th>"
-                        + "<td>" + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? t.getComptedebiteId() : t.getComptecreditId()) + "</td>"
-                        + "<td class=\"" + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? "text-success" : "text-danger") + "\">"
-                        + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? "" : "-") + t.getMontant() + "</td>"
-                        );
-                if (t.getEtat().equals("ATT")) {
-                    out.print("<td class=\"text-warning\">En attente de validation</td>");
-                } else  if (t.getEtat().equals("VAL")) {
-                    out.print("<td class=\"text-success\">Validée</td>");
-                } else {
-                    out.print("<td class=\"text-danger\">Refusée</td>");
+            
+            if (!entrySet.getValue().isEmpty()) {
+                for (Transactions t : entrySet.getValue()) {
+                    out.print("<tr>"
+                            + "<th scope=\"row\">" + t.getIdTransaction() + "</th>"
+                            + "<td>" + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? t.getComptedebiteId() : t.getComptecreditId()) + "</td>"
+                            + "<td class=\"" + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? "text-success" : "text-danger") + "\">"
+                            + ((entrySet.getKey().getIdCompte() == t.getComptecreditId()) ? "" : "-") + t.getMontant() + "</td>"
+                            );
+                    if (t.getEtat().equals("ATT")) {
+                        out.print("<td class=\"text-warning\">En attente de validation</td>");
+                    } else  if (t.getEtat().equals("VAL")) {
+                        out.print("<td class=\"text-success\">Validée</td>");
+                    } else {
+                        out.print("<td class=\"text-danger\">Refusée</td>");
+                    }
+                    out.print("</tr>");
                 }
-                out.print("</tr>");
             }
             out.print("</tbody></table></div></div></div>");
         }

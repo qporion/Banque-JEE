@@ -52,7 +52,7 @@ a {
     background-color: var(--light);
 }
 
-.conseiller {
+.bubble {
     cursor: pointer;
     font-size: 4em;
     border-radius: 50%;
@@ -62,12 +62,32 @@ a {
     border: 2px solid var(--green);
 }
 
-.conseiller i { 
+.bubble i { 
     display: flex;
     margin: auto;
 }
 
-.conseiller:hover {
+.bubble:hover {
+    font-weight: bold;
+    background-color: var(--light) !important;
+}
+
+.bubble-sm {
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 50%;
+    display: flex;
+    width: 1.5em;
+    height: 1.5em;
+    border: 1px solid var(--green);
+}
+
+.bubble-sm i { 
+    display: flex;
+    margin: auto;
+}
+
+.bubble-sm:hover {
     font-weight: bold;
     background-color: var(--light) !important;
 }

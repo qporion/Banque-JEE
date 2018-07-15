@@ -1,6 +1,7 @@
 package Beans;
 
 import Model.Agence;
+import Model.Client;
 import Model.Compte;
 import Model.Conseiller;
 import Model.Jour;
@@ -23,8 +24,12 @@ public class ContentBeans implements Serializable {
     private Map<Compte, List<Transactions>> transactions = null;
     private List<Compte> comptes = new ArrayList<>();
     private Map<Conseiller, Agence> conseillers = new LinkedHashMap<>();
+    private Map<Client, Agence> clients = new LinkedHashMap<>();
     private Map<Conseiller, List<Message>> messages = new LinkedHashMap<>();
+    private Map<Client, List<Message>> messagesConseiller = new LinkedHashMap<>();
     private Map<Agence, List<Jour>> agences = new LinkedHashMap<>();
+    private Map<Compte, List<Client>> comptesClient = new LinkedHashMap<>();
+    private List<Client> clients = new ArrayList<>();
 
     public String getFile() {
         return file;
@@ -81,13 +86,29 @@ public class ContentBeans implements Serializable {
     public void setConseillers(Map<Conseiller, Agence> conseillers) {
         this.conseillers = conseillers;
     }
+    
+    public Map<Client, Agence> getClient() {
+        return clients;
+    }
+
+    public void setClient(Map<Client, Agence> clients) {
+        this.clients = clients;
+    }
 
     public Map<Conseiller, List<Message>> getMessages() {
         return messages;
     }
+    
+    public Map<Client, List<Message>> getMessagesConseiller() {
+        return messagesConseiller;
+    }
 
     public void setMessages(Map<Conseiller, List<Message>> messages) {
         this.messages = messages;
+    }
+    
+    public void setMessagesConseiller(Map<Client, List<Message>> messages) {
+        this.messagesConseiller = messages;
     }
 
     public Map<Agence, List<Jour>> getAgences() {
@@ -98,5 +119,20 @@ public class ContentBeans implements Serializable {
         this.agences = agences;
     }
 
+    public Map<Compte, List<Client>> getComptesClient() {
+        return comptesClient;
+    }
+
+    public void setComptesClient(Map<Compte, List<Client>> comptesClient) {
+        this.comptesClient = comptesClient;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
     
 }

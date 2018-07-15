@@ -13,7 +13,6 @@ import Model.Transactions;
 import Orm.QueryHelper;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,42 +41,46 @@ public class MesComptes extends AbstractServlet {
         ContentBeans bean = new ContentBeans();
         Client client = this.getClient(request, response);
         
-        String requete = "SELECT {c.*}, {cc.*}, {co.*}, {t.*} FROM Client c"
-                + " JOIN Compteclient cc ON c.id_client = cc.client_id "
-                + "JOIN Compte co ON cc.compte_id = co.id_compte "
-                + "JOIN Transactions t ON t.comptecredit_id = co.id_compte OR t.comptedebite_id = co.id_compte "
-                + "WHERE c.id_client = " + client.getIdClient()
-                ;
+        if (client != null) {
+            String requete = "SELECT {c.*}, {cc.*}, {co.*}, {t.*} FROM Client c "
+                    + "JOIN Compteclient cc ON c.id_client = cc.client_id "
+                    + "JOIN Compte co ON cc.compte_id = co.id_compte "
+                    + "LEFT JOIN Transactions t ON t.comptecredit_id = co.id_compte OR t.comptedebite_id = co.id_compte "
+                    + "WHERE c.id_client = " + client.getIdClient()
+                    ;
 
-        Map <String, Class> entities = new LinkedHashMap<>();
-        entities.put("c", Client.class);
-        entities.put("cc", Compteclient.class);
-        entities.put("co", Compte.class);
-        entities.put("t", Transactions.class);
-        
-        QueryHelper qh = new QueryHelper();
-        List<Object[]> results = qh.executeQuery(requete, entities);
-        
-        Map<Compte, List<Transactions>> transactions = new LinkedHashMap<>();
-        for( Object[] result : results) {
-            Compte compte = (Compte) result[2];
-            Transactions transaction = (Transactions) result[3];
-            
-            if (!transactions.containsKey(compte) && compte != null) {
-                transactions.put(compte, new ArrayList<>());
+            Map <String, Class> entities = new LinkedHashMap<>();
+            entities.put("c", Client.class);
+            entities.put("cc", Compteclient.class);
+            entities.put("co", Compte.class);
+            entities.put("t", Transactions.class);
+
+            QueryHelper qh = new QueryHelper();
+            List<Object[]> results = qh.executeQuery(requete, entities);
+
+            Map<Compte, List<Transactions>> transactions = new LinkedHashMap<>();
+            for( Object[] result : results) {
+                Compte compte = (Compte) result[2];
+                Transactions transaction = (Transactions) result[3];
+
+                if (!transactions.containsKey(compte) && compte != null) {
+                    transactions.put(compte, new ArrayList<>());
+                }
+                
+                if(transaction != null){
+                    transactions.get(compte).add(0, transaction);
+                }
+            } 
+
+            if( transactions.size() == 0) {
+                bean.setErr("Aucune transaction effectuée pour ce compte");
+            } else {
+                bean.setTransactions(transactions);
             }
-            
-            transactions.get(compte).add(0, transaction);
-        } 
-         
-        if( transactions.size() == 0) {
-            bean.setErr("Aucune transaction effectuée pour ce compte");
-        } else {
-            bean.setTransactions(transactions);
+
+            this.buildBeans(request, "mescomptes", bean);
+            this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
         }
-        
-        this.buildBeans(request, "mescomptes", bean);
-        this.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
     }
 
     /**

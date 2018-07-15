@@ -7,15 +7,11 @@ package Controler;
 
 import Beans.ContentBeans;
 import Model.Client;
+import Model.Conseiller;
 import Orm.DatabaseConnection;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +42,11 @@ public abstract class AbstractServlet extends HttpServlet{
             nav.put("<i class=\"mdi mdi-comment-text-multiple-outline\"></i> Mes comptes", request.getContextPath() + "/MesComptes");
             nav.put("<i class=\"mdi mdi-swap-horizontal\"></i> Transaction", request.getContextPath() + "/Transaction");
             request.getSession().setAttribute("connected", true);
+        } else if (request.getSession().getAttribute("conseiller") != null) {
+            nav.put("<i class=\"mdi mdi-contacts\"></i> Clients", request.getContextPath() + "/ContactConseiller");
+            nav.put("<i class=\"mdi mdi-comment-text-multiple-outline\"></i> Comptes client", request.getContextPath() + "/ComptesClient");
+            nav.put("<i class=\"mdi mdi-swap-horizontal\"></i> Virement", request.getContextPath() + "/TransactionConseiller");
+            request.getSession().setAttribute("connected", true); 
         } else {
             request.getSession().setAttribute("connected", false);
         }
@@ -65,6 +66,15 @@ public abstract class AbstractServlet extends HttpServlet{
             return null;
         } else {
             return ((Client) request.getSession().getAttribute("client"));
+        }
+    }
+    
+    public Conseiller getConseiller(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getSession().getAttribute("conseiller") == null) {
+            response.sendRedirect( request.getContextPath() + "/LogIn");
+            return null;
+        } else {
+            return ((Conseiller) request.getSession().getAttribute("conseiller"));
         }
     }
 }
